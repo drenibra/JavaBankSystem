@@ -1,0 +1,121 @@
+### Get all Accounts
+GET http://localhost:8080/api/accounts
+Accept: application/json
+
+### Get Account by ID
+GET http://localhost:8080/api/accounts/2
+Accept: application/json
+
+### Check Account Balance
+GET http://localhost:8080/api/accounts/checkBalance/2
+Accept: application/json
+
+### Create a new Account
+POST http://localhost:8080/api/accounts
+Content-Type: application/json
+Accept: application/json
+
+{
+  "userName": "dreniiii",
+  "balance": 0
+}
+
+### Delete an Account
+DELETE http://localhost:8080/api/accounts/1
+Accept: application/json
+#
+
+
+
+
+
+
+
+### BANKS
+
+### Get all Banks
+GET http://localhost:8080/api/banks
+Accept: application/json
+
+### Get Bank by ID
+GET http://localhost:8080/api/banks/1
+Accept: application/json
+
+### Create a new Bank
+POST http://localhost:8080/api/banks
+Content-Type: application/json
+Accept: application/json
+
+{
+  "bankName": "RaiffeisenBank",
+  "totalTransactionFeeAmount": 0,
+  "totalTransferAmount":  0,
+  "transactionFlatFeeAmount": 10,
+  "transactionPercentFeeValue":  0.03
+}
+
+### Get Total Transaction Fee Amount
+GET http://localhost:8080/api/banks/totalTransactionFeeAmount/1
+Accept: application/json
+
+### Get Total Transfer Amount
+GET http://localhost:8080/api/banks/totalTransferAmount/1
+Accept: application/json
+
+### Delete a Bank
+DELETE http://localhost:8080/api/accounts/3
+Accept: application/json
+
+
+
+
+
+
+
+
+
+### TRANSCATIONS
+
+### Get all Transactions
+GET http://localhost:8080/api/transactions
+Accept: application/json
+
+### Get Transcations of Account
+GET http://localhost:8080/api/transactions/originAccount/1
+Accept: application/json
+
+### Perform a new Transaction Account - Account
+POST http://localhost:8080/api/transactions
+Content-Type: application/json
+Accept: application/json
+
+{
+    "amount": 20,
+    "originatingAccountId": 1,
+    "resultingAccountId":  2,
+    "transactionReason": "TRANSFER",
+    "transactionType":  "FLAT_FEE"
+}
+
+### Perform a new Transaction - Deposit
+POST http://localhost:8080/api/transactions
+Content-Type: application/json
+Accept: application/json
+
+{
+  "amount": 20,
+  "originatingAccountId": 1,
+  "transactionReason": "DEPOSIT"
+}
+
+### Perform a new Transaction - Withdrawal
+POST http://localhost:8080/api/transactions
+Content-Type: application/json
+Accept: application/json
+
+{
+  "amount": 20,
+  "originatingAccountId": 1,
+  "transactionReason": "WITHDRAWAL",
+  "transactionType": "FLAT_FEE"
+}
