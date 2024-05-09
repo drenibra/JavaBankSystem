@@ -1,6 +1,6 @@
 package dev.dren.linkplus.assignment.bank;
 
-import dev.dren.linkplus.assignment.account.Account;
+import dev.dren.linkplus.assignment.bank.Bank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,21 +11,21 @@ import java.util.Optional;
 public class BankService {
 
     @Autowired
-    private AccountRepository accountRepository;
+    private BankRepository bankRepository;
 
-    public Account saveAccount(Account account) {
-        return accountRepository.save(account);
+    public Bank saveBank(Bank bank) {
+        return bankRepository.save(bank);
     }
 
-    public Optional<Account> getAccountById(int id) {
-        return accountRepository.findById(id);
+    public Optional<Bank> getBankById(int id) {
+        return bankRepository.findById(id);
     }
 
-    public List<Account> getAllAccounts() {
-        return accountRepository.findAll();
+    public List<Bank> getAllBanks() {
+        return bankRepository.findAll();
     }
 
-    public void deleteAccount(int id) {
-        accountRepository.deleteById(id);
+    public void deleteBank(int id) {
+        bankRepository.deleteById(id);
     }
 }

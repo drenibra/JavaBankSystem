@@ -1,6 +1,8 @@
 package dev.dren.linkplus.assignment.bank;
 
-import dev.dren.linkplus.assignment.account.Account;
+import dev.dren.linkplus.assignment.bank.Bank;
+import dev.dren.linkplus.assignment.bank.BankService;
+import dev.dren.linkplus.assignment.bank.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -8,32 +10,32 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/accounts")
+@RequestMapping("/api/banks")
 public class BankController {
 
     @Autowired
-    private AccountService accountService;
+    private BankService bankService;
 
     @PostMapping
-    public Account createAccount(@RequestBody Account account) {
-        return accountService.saveAccount(account);
+    public Bank createBank(@RequestBody Bank bank) {
+        return bankService.saveBank(bank);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Account> getAccountById(@PathVariable int id) {
-        return accountService.getAccountById(id)
+    public ResponseEntity<Bank> getBankById(@PathVariable int id) {
+        return bankService.getBankById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public List<Account> getAllAccounts() {
-        return accountService.getAllAccounts();
+    public List<Bank> getAllBanks() {
+        return bankService.getAllBanks();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAccount(@PathVariable int id) {
-        accountService.deleteAccount(id);
+    public ResponseEntity<Void> deleteBank(@PathVariable int id) {
+        bankService.deleteBank(id);
         return ResponseEntity.noContent().build();
     }
 }

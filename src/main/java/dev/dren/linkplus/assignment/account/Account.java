@@ -1,11 +1,9 @@
 package dev.dren.linkplus.assignment.account;
 
+import dev.dren.linkplus.assignment.bank.Bank;
 import dev.dren.linkplus.assignment.user.User;
 import jakarta.annotation.PostConstruct;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,11 +16,15 @@ public class Account {
     private String userName;
     private double balance;
 
+    @ManyToOne
+    @JoinColumn(name = "bank_id")
+    private Bank bank;
+
     protected Account() {
 
     }
 
-    public Account(int accountId, String userName, double initialBalance) {
+    public Account(Integer accountId, String userName, double initialBalance) {
         this.accountId = accountId;
         this.userName = userName;
         if (initialBalance < 0) {

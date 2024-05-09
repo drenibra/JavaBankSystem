@@ -1,29 +1,3 @@
-### Get all users
-GET http://localhost:8080/api/users
-Accept: application/json
-
-### Get user by ID
-GET http://localhost:8080/api/users/1
-Accept: application/json
-
-### Create a new user
-POST http://localhost:8080/api/users
-Content-Type: application/json
-Accept: application/json
-
-{
-  "id": 5,
-  "firstName": "John",
-  "lastName": "Doe",
-  "dateOfBirth": "1998-01-01T00:00:00Z"
-}
-
-### Delete a Account
-DELETE http://localhost:8080/api/accounts/4
-Accept: application/json
-
-
-
 ### Get all Accounts
 GET http://localhost:8080/api/accounts
 Accept: application/json
@@ -40,6 +14,36 @@ Accept: application/json
 {
   "userName": "dreniiii",
   "balance": 0
+}
+
+### Delete a Account
+DELETE http://localhost:8080/api/accounts/1
+Accept: application/json
+
+
+
+
+### BANKS
+
+### Get all Banks
+GET http://localhost:8080/api/banks
+Accept: application/json
+
+### Get Bank by ID
+GET http://localhost:8080/api/banks/1
+Accept: application/json
+
+### Create a new Bank
+POST http://localhost:8080/api/banks
+Content-Type: application/json
+Accept: application/json
+
+{
+  "bankName": "Raiffeisen",
+  "totalTransactionFeeAmount": 0,
+  "totalTransferAmount":  0,
+  "transactionFlatFeeAmount": 1,
+  "transactionPercentFeeValue":  3
 }
 
 ### Delete a Account
