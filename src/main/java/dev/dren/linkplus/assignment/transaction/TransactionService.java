@@ -4,6 +4,7 @@ import dev.dren.linkplus.assignment.account.Account;
 import dev.dren.linkplus.assignment.account.AccountRepository;
 import dev.dren.linkplus.assignment.bank.Bank;
 import dev.dren.linkplus.assignment.bank.BankRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -42,25 +43,46 @@ public class TransactionService {
         var transactionType = transaction.transactionType;
         var transactionReason = transaction.transactionReason;
 
-        Account originatingAccount = accountRepository.findById(originatingAccountId).orElseThrow(IllegalArgumentException::new);
-        Account resultingAccount = accountRepository.findById(resultingAccountId).orElseThrow(IllegalArgumentException::new);
-        Bank originatingBank = bankRepository.findById(originatingAccount.getBank().getBankId()).orElseThrow(IllegalArgumentException::new);
+        Account originatingAccount = accountRepository.findById(originatingAccountId).orElseThrow(EntityNotFoundException::new);
+        Bank originatingBank = bankRepository.findById(originatingAccount.getBank().getBankId()).orElseThrow(EntityNotFoundException::new);
 
-        double fee = calculateFee(amount, transactionType, originatingBank);
+        double fee = transactionReason == Transaction.TransactionReason.TRANSFER ? calculateFee(amount, transactionType, originatingAccount.getBank()) : 0;
         double totalAmount = amount + fee;
-
-        if (originatingAccount.getBalance() < totalAmount) {
-            throw new InsufficientFundsException("Insufficient funds in the originating account");
-        }
 
         originatingBank.setTotalTransferAmount(originatingBank.getTotalTransferAmount() + amount);
         originatingBank.setTotalTransactionFeeAmount(originatingBank.getTotalTransactionFeeAmount() + fee);
 
-        originatingAccount.setBalance(originatingAccount.getBalance() - totalAmount);
-        resultingAccount.setBalance(resultingAccount.getBalance() + amount);
+        if (transactionReason != Transaction.TransactionReason.DEPOSIT && originatingAccount.getBalance() < totalAmount) {
+            throw new InsufficientFundsException("Insufficient funds in the originating account");
+        }
 
-        accountRepository.save(originatingAccount);
-        accountRepository.save(resultingAccount);
+        switch (transactionReason) {
+            case TRANSFER:
+                Account resultingAccount = accountRepository.findById(resultingAccountId).orElseThrow(EntityNotFoundException::new);
+                if (originatingAccount.getBalance() < totalAmount) {
+                    throw new InsufficientFundsException("Insufficient funds for transfer.");
+                }
+
+                originatingAccount.setBalance(originatingAccount.getBalance() - totalAmount);
+                resultingAccount.setBalance(resultingAccount.getBalance() + amount);
+
+                accountRepository.save(originatingAccount);
+                accountRepository.save(resultingAccount);
+                break;
+
+            case WITHDRAWAL:
+                if (originatingAccount.getBalance() < totalAmount) {
+                    throw new InsufficientFundsException("Insufficient funds for withdrawal.");
+                }
+                originatingAccount.setBalance(originatingAccount.getBalance() - totalAmount);
+                accountRepository.save(originatingAccount);
+                break;
+
+            case DEPOSIT:
+                originatingAccount.setBalance(originatingAccount.getBalance() + amount);
+                accountRepository.save(originatingAccount);
+                break;
+        }
 
         Transaction resultingTransaction = new Transaction(amount, originatingAccountId, resultingAccountId, transactionReason);
         transactionRepository.save(resultingTransaction);
