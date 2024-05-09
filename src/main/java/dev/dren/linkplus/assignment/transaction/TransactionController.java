@@ -19,6 +19,7 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
+
 /*    @PostMapping
     public Transaction createTransaction(@RequestBody Transaction transaction) {
         return transactionService.saveTransaction(transaction);
@@ -42,8 +43,18 @@ public class TransactionController {
         return ResponseEntity.noContent().build();
     }*/
 
+    @GetMapping
+    public List<Transaction> getAllTransactions() {
+        return transactionService.getAllTransactions();
+    }
+
     @PostMapping
     public Transaction performTransaction(@RequestBody @Valid final TransactionDTO transaction) {
         return transactionService.performTransaction(transaction);
+    }
+
+    @GetMapping("/originAccount/{id}")
+    public List<Transaction> getTransactionsOfAccount(@PathVariable Integer id) {
+        return transactionService.getTransactionsOfAccount(id);
     }
 }
