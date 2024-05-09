@@ -70,4 +70,21 @@ public class TransactionServiceTest {
         assertEquals(600.0, resultingAccount.getBalance());
         verify(accountRepository, times(4)).save(any(Account.class));
     }
+
+    @Test
+    public void testPerformTransactionDeposit() throws Exception {
+        Bank bank = new Bank("Raiffeisen", 10, 0.01);
+        Account originatingAccount = new Account(1, "User1", 1000.00, bank);
+
+        when(accountRepository.findById(1)).thenReturn(Optional.of(originatingAccount));
+        when(bankRepository.findById(originatingAccount.getBank().getBankId())).thenReturn(Optional.of(bank));
+
+        TransactionDTO dto = new TransactionDTO(100, 1, 2, Transaction.TransactionReason.DEPOSIT, TransactionService.TransactionType.FLAT_FEE);
+
+        Transaction transaction = transactionService.performTransaction(dto);
+
+        assertNotNull(transaction);
+        System.out.println("account balance: " + originatingAccount.getBalance());
+        assertEquals(1100, originatingAccount.getBalance());
+    }
 }
