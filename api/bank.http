@@ -20,10 +20,15 @@ Accept: application/json
   "balance": 0
 }
 
-### Delete a Account
+### Delete an Account
 DELETE http://localhost:8080/api/accounts/1
 Accept: application/json
 #
+
+
+
+
+
 
 
 ### BANKS
@@ -45,8 +50,8 @@ Accept: application/json
   "bankName": "RaiffeisenBank",
   "totalTransactionFeeAmount": 0,
   "totalTransferAmount":  0,
-  "transactionFlatFeeAmount": 5,
-  "transactionPercentFeeValue":  3
+  "transactionFlatFeeAmount": 10,
+  "transactionPercentFeeValue":  0.03
 }
 
 ### Get Total Transaction Fee Amount

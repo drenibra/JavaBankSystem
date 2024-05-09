@@ -40,16 +40,4 @@ public class AccountController {
         accountService.deleteAccount(id);
         return ResponseEntity.ok("Account deletion successful!");
     }
-
-    @PostMapping("/deposit")
-    public ResponseEntity<String> deposit(@RequestBody DepositWithdrawDTO depositWithdrawDTO) {
-        accountService.deposit(depositWithdrawDTO.accountId, depositWithdrawDTO.amount);
-        return ResponseEntity.ok("Deposit successful!");
-    }
-
-    @PostMapping("/withdraw")
-    public ResponseEntity<String> withdraw(@RequestBody DepositWithdrawDTO depositWithdrawDTO) {
-        accountService.withdraw(depositWithdrawDTO.accountId, depositWithdrawDTO.amount);
-        return ResponseEntity.ok("Withdrawal successful!");
-    }
 }
