@@ -1,16 +1,10 @@
 package dev.dren.linkplus.assignment.account;
 
-import dev.dren.linkplus.assignment.account.Account;
-import dev.dren.linkplus.assignment.account.AccountNotFoundException;
-import dev.dren.linkplus.assignment.account.AccountRepository;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/accounts")
@@ -31,14 +25,31 @@ public class AccountController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/checkBalance/{id}")
+    public Double checkBalance(@PathVariable int id) {
+        return accountService.getAccountBalance(id);
+    }
+
     @GetMapping
     public List<AccountDetailsDTO> getAllAccounts() {
         return accountService.getAllAccounts();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAccount(@PathVariable int id) {
+    public ResponseEntity<String> deleteAccount(@PathVariable int id) {
         accountService.deleteAccount(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok("Account deletion successful!");
+    }
+
+    @PostMapping("/deposit")
+    public ResponseEntity<String> deposit(@RequestBody DepositWithdrawDTO depositWithdrawDTO) {
+        accountService.deposit(depositWithdrawDTO.accountId, depositWithdrawDTO.amount);
+        return ResponseEntity.ok("Deposit successful!");
+    }
+
+    @PostMapping("/withdraw")
+    public ResponseEntity<String> withdraw(@RequestBody DepositWithdrawDTO depositWithdrawDTO) {
+        accountService.withdraw(depositWithdrawDTO.accountId, depositWithdrawDTO.amount);
+        return ResponseEntity.ok("Withdrawal successful!");
     }
 }

@@ -46,4 +46,13 @@ public class BankController {
         bankService.deleteBank(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/totalTransactionFeeAmount/{id}")
+    public double getTotalTransactionFeeAmount(@PathVariable Integer id) {
+        return bankService.getTotalTransactionFeeAmount(id);
+    }
+    @GetMapping("/totalTransferAmount/{id}")
+    public double getTotalTransferAmount(@PathVariable  Integer id) {
+        return bankService.getTotalTransferAmount(id);
+    }
 }

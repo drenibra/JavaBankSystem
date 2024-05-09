@@ -12,7 +12,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackages = "dev.dren.linkplus.assignment")
 @EntityScan("dev.dren.linkplus.assignment")
 public class Application {
-
 	private static final Logger log = LoggerFactory.getLogger(Application.class);
 
 	public static void main(String[] args) {

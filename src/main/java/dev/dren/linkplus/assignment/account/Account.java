@@ -53,20 +53,4 @@ public class Account {
     public void setBalance(double newBalance) {
         this.balance = newBalance;
     }
-
-    public synchronized void deposit(double amount) {
-        if (amount > 0) {
-            balance += amount;
-        } else {
-            throw new IllegalArgumentException("Deposit amount must be positive");
-        }
-    }
-
-    public synchronized void withdraw(double amount) {
-        if (amount > 0 && amount <= balance) {
-            balance -= amount;
-        } else {
-            throw new IllegalArgumentException("Invalid withdrawal amount");
-        }
-    }
 }

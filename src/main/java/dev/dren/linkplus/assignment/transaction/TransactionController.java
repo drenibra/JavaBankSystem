@@ -19,30 +19,6 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
-
-/*    @PostMapping
-    public Transaction createTransaction(@RequestBody Transaction transaction) {
-        return transactionService.saveTransaction(transaction);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Transaction> getTransactionById(@PathVariable int id) {
-        return transactionService.getTransactionById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-    @GetMapping
-    public List<Transaction> getAllTransactions() {
-        return transactionService.getAllTransactions();
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTransaction(@PathVariable int id) {
-        transactionService.deleteTransaction(id);
-        return ResponseEntity.noContent().build();
-    }*/
-
     @GetMapping
     public List<Transaction> getAllTransactions() {
         return transactionService.getAllTransactions();

@@ -53,6 +53,9 @@ public class TransactionService {
             throw new InsufficientFundsException("Insufficient funds in the originating account");
         }
 
+        originatingBank.setTotalTransferAmount(originatingBank.getTotalTransferAmount() + amount);
+        originatingBank.setTotalTransactionFeeAmount(originatingBank.getTotalTransactionFeeAmount() + fee);
+
         originatingAccount.setBalance(originatingAccount.getBalance() - totalAmount);
         resultingAccount.setBalance(resultingAccount.getBalance() + amount);
 

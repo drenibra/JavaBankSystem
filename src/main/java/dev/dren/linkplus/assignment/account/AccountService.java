@@ -29,10 +29,33 @@ public class AccountService {
                 account.getBalance(),
                 account.getBank().getBankName()  // Accessing the bank name
         )).collect(Collectors.toList());
-
     }
 
     public void deleteAccount(int id) {
         accountRepository.deleteById(id);
+    }
+
+    public Double getAccountBalance(Integer id) {
+        return accountRepository.findById(id).get().getBalance();
+    }
+
+    public synchronized void deposit(Integer id, double amount) {
+        if (amount > 0) {
+            Account account = accountRepository.findById(id).get();
+            account.setBalance(account.getBalance() + amount);
+            accountRepository.save(account);
+        } else {
+            throw new IllegalArgumentException("Deposit amount must be positive");
+        }
+    }
+
+    public synchronized void withdraw(Integer id, double amount) {
+        Account account = accountRepository.findById(id).get();
+        if (amount > 0 && amount <= account.getBalance()) {
+            account.setBalance(account.getBalance() - amount);
+            accountRepository.save(account);
+        } else {
+            throw new IllegalArgumentException("Invalid withdrawal amount");
+        }
     }
 }

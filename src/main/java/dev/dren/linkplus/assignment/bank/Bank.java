@@ -46,13 +46,22 @@ public class Bank {
         return totalTransactionFeeAmount;
     }
 
+    public void setTotalTransactionFeeAmount(double totalTransactionFeeAmount) {
+        this.totalTransactionFeeAmount = totalTransactionFeeAmount;
+    }
+
     public double getTotalTransferAmount() {
         return totalTransferAmount;
+    }
+
+    public void setTotalTransferAmount(double totalTransferAmount) {
+        this.totalTransferAmount = totalTransferAmount;
     }
 
     public double getTransactionFlatFeeAmount() {
         return transactionFlatFeeAmount;
     }
+
 
     public void setTransactionFlatFeeAmount(double transactionFlatFeeAmount) {
         this.transactionFlatFeeAmount = transactionFlatFeeAmount;

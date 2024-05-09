@@ -6,6 +6,10 @@ Accept: application/json
 GET http://localhost:8080/api/accounts/2
 Accept: application/json
 
+### Check Account Balance
+GET http://localhost:8080/api/accounts/checkBalance/2
+Accept: application/json
+
 ### Create a new Account
 POST http://localhost:8080/api/accounts
 Content-Type: application/json
@@ -19,8 +23,27 @@ Accept: application/json
 ### Delete a Account
 DELETE http://localhost:8080/api/accounts/1
 Accept: application/json
+#
 
+### Deposit into Account
+POST http://localhost:8080/api/accounts/deposit
+Content-Type: application/json
+Accept: application/json
 
+{
+  "accountId": 1,
+  "amount": 20
+}
+
+### Withdraw from Account
+POST http://localhost:8080/api/accounts/withdraw
+Content-Type: application/json
+Accept: application/json
+
+{
+  "accountId": 1,
+  "amount": 10
+}
 
 
 ### BANKS
@@ -46,18 +69,13 @@ Accept: application/json
   "transactionPercentFeeValue":  3
 }
 
-### Update Bank
-PUT http://localhost:8080/api/banks/1
-Content-Type: application/json
+### Get Total Transaction Fee Amount
+GET http://localhost:8080/api/banks/totalTransactionFeeAmount/1
 Accept: application/json
 
-{
-  "bankName": "Raiffeisen Bank",
-  "totalTransactionFeeAmount": 0,
-  "totalTransferAmount":  0,
-  "transactionFlatFeeAmount": 1,
-  "transactionPercentFeeValue":  3
-}
+### Get Total Transfer Amount
+GET http://localhost:8080/api/banks/totalTransferAmount/1
+Accept: application/json
 
 ### Delete a Bank
 DELETE http://localhost:8080/api/accounts/3
