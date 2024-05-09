@@ -34,6 +34,10 @@ public class Bank {
         this.transactionPercentFeeValue = transactionPercentFeeValue;
     }
 
+    public Integer getBankId() {
+        return bankId;
+    }
+
     public String getBankName() {
         return bankName;
     }

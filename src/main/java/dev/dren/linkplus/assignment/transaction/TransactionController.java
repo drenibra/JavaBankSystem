@@ -19,7 +19,7 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
-    @PostMapping
+/*    @PostMapping
     public Transaction createTransaction(@RequestBody Transaction transaction) {
         return transactionService.saveTransaction(transaction);
     }
@@ -40,5 +40,10 @@ public class TransactionController {
     public ResponseEntity<Void> deleteTransaction(@PathVariable int id) {
         transactionService.deleteTransaction(id);
         return ResponseEntity.noContent().build();
+    }*/
+
+    @PostMapping
+    public Transaction performTransaction(@RequestBody @Valid final TransactionDTO transaction) {
+        return transactionService.performTransaction(transaction);
     }
 }

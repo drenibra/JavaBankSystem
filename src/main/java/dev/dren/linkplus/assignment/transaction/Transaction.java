@@ -25,8 +25,7 @@ public class Transaction {
 
     }
 
-    public Transaction(Integer transactionId, double amount, int originatingAccountId, int resultingAccountId, TransactionReason transactionReason) {
-        this.transactionId = transactionId;
+    public Transaction(double amount, int originatingAccountId, int resultingAccountId, TransactionReason transactionReason) {
         if (amount <= 0) {
             throw new IllegalArgumentException("Amount must be greater than 0");
         }

@@ -50,6 +50,10 @@ public class Account {
         return this.bank;
     }
 
+    public void setBalance(double newBalance) {
+        this.balance = newBalance;
+    }
+
     public synchronized void deposit(double amount) {
         if (amount > 0) {
             balance += amount;

@@ -25,8 +25,8 @@ public class DatabaseSeeder {
     public void init() {
         if (bankRepository.count() == 0) {
             try {
-                bank1 = new Bank("Raiffeisen",1, 3);
-                bank2 = new Bank("Procredit",0, 5);
+                bank1 = new Bank("Raiffeisen",1, 0.03);
+                bank2 = new Bank("Procredit",0, 0.05);
                 bankRepository.save(bank1);
                 bankRepository.save(bank2);
             } catch (IllegalArgumentException e) {
