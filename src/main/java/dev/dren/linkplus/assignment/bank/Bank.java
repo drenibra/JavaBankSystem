@@ -26,14 +26,13 @@ public class Bank {
 
     }
 
-    public Bank(String bankName) {
+    public Bank(String bankName, double transactionFlatFeeAmount, double transactionPercentFeeValue) {
         this.bankName = bankName;
         this.accounts = new ArrayList<>();
-        this.totalTransactionFeeAmount = 0.0;
-        this.totalTransferAmount = 0.0;
-        // Default values for transaction fees, can be changed later
-        this.transactionFlatFeeAmount = 10.0;
-        this.transactionPercentFeeValue = 0.05; // 5%
+        this.totalTransactionFeeAmount = 0;
+        this.totalTransferAmount = 0;
+        this.transactionFlatFeeAmount = transactionFlatFeeAmount;
+        this.transactionPercentFeeValue = transactionPercentFeeValue;
     }
 
     public String getBankName() {
