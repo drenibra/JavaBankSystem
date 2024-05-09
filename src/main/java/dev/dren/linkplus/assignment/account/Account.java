@@ -16,7 +16,7 @@ public class Account {
     private String userName;
     private double balance;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "bank_id")
     private Bank bank;
 
@@ -24,13 +24,14 @@ public class Account {
 
     }
 
-    public Account(Integer accountId, String userName, double initialBalance) {
+    public Account(Integer accountId, String userName, double initialBalance, Bank bank) {
         this.accountId = accountId;
         this.userName = userName;
         if (initialBalance < 0) {
             throw new IllegalArgumentException("Initial balance cannot be negative");
         }
         this.balance = initialBalance;
+        this.bank = bank;
     }
 
     public Integer getAccountId() {
@@ -43,6 +44,10 @@ public class Account {
 
     public synchronized double getBalance() {
         return balance;
+    }
+
+    public Bank getBank() {
+        return this.bank;
     }
 
     public synchronized void deposit(double amount) {

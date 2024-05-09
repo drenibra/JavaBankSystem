@@ -1,6 +1,5 @@
 package dev.dren.linkplus.assignment.bank;
 
-import dev.dren.linkplus.assignment.Transcation.Transaction;
 import dev.dren.linkplus.assignment.account.Account;
 import jakarta.persistence.*;
 

@@ -1,4 +1,4 @@
-package dev.dren.linkplus.assignment.Transcation;
+package dev.dren.linkplus.assignment.transaction;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,6 +27,9 @@ public class Transaction {
 
     public Transaction(Integer transactionId, double amount, int originatingAccountId, int resultingAccountId, TransactionReason transactionReason) {
         this.transactionId = transactionId;
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Amount must be greater than 0");
+        }
         this.amount = amount;
         this.originatingAccountId = originatingAccountId;
         this.resultingAccountId = resultingAccountId;

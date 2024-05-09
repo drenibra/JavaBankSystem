@@ -46,6 +46,47 @@ Accept: application/json
   "transactionPercentFeeValue":  3
 }
 
-### Delete a Account
+### Update Bank
+PUT http://localhost:8080/api/banks/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "bankName": "Raiffeisen Bank",
+  "totalTransactionFeeAmount": 0,
+  "totalTransferAmount":  0,
+  "transactionFlatFeeAmount": 1,
+  "transactionPercentFeeValue":  3
+}
+
+### Delete a Bank
+DELETE http://localhost:8080/api/accounts/3
+Accept: application/json
+
+
+
+### TRANSCATIONS
+
+### Get all Transactions
+GET http://localhost:8080/api/transactions
+Accept: application/json
+
+### Get Transcation by ID
+GET http://localhost:8080/api/transactions/1
+Accept: application/json
+
+### Create a new Transaction
+POST http://localhost:8080/api/transactions
+Content-Type: application/json
+Accept: application/json
+
+{
+  "amount":  35,
+  "originatingAccountId": 1,
+  "resultingAccountId":  2,
+  "transactionReason": "TRANSFER"
+}
+
+### Delete a Transaction
 DELETE http://localhost:8080/api/accounts/1
 Accept: application/json

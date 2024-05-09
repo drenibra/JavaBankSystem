@@ -3,7 +3,10 @@ package dev.dren.linkplus.assignment.bank;
 import dev.dren.linkplus.assignment.bank.Bank;
 import dev.dren.linkplus.assignment.bank.BankService;
 import dev.dren.linkplus.assignment.bank.BankService;
+import dev.dren.linkplus.assignment.user.User;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +34,11 @@ public class BankController {
     @GetMapping
     public List<Bank> getAllBanks() {
         return bankService.getAllBanks();
+    }
+
+    @PutMapping("/{id}")
+    void update(@Valid @RequestBody Bank bank, @PathVariable Integer id) {
+        bankService.updateBank(bank, id);
     }
 
     @DeleteMapping("/{id}")

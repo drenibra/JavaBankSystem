@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AccountService {
@@ -20,8 +21,15 @@ public class AccountService {
         return accountRepository.findById(id);
     }
 
-    public List<Account> getAllAccounts() {
-        return accountRepository.findAll();
+    public List<AccountDetailsDTO> getAllAccounts() {
+        List<Account> accounts = accountRepository.findAll();
+        return accounts.stream().map(account -> new AccountDetailsDTO(
+                account.getAccountId(),
+                account.getUserName(),
+                account.getBalance(),
+                account.getBank().getBankName()  // Accessing the bank name
+        )).collect(Collectors.toList());
+
     }
 
     public void deleteAccount(int id) {

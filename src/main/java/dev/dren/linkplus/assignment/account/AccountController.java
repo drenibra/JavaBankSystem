@@ -32,7 +32,7 @@ public class AccountController {
     }
 
     @GetMapping
-    public List<Account> getAllAccounts() {
+    public List<AccountDetailsDTO> getAllAccounts() {
         return accountService.getAllAccounts();
     }
 

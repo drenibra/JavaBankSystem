@@ -30,7 +30,6 @@ public class UserRepository {
 
     void update(User user, Integer id) {
         Optional<User> existingUser = findById(id);
-//        existingUser.ifPresent(value -> users.set(users.indexOf(value), user));
         if (existingUser.isPresent()) {
             users.set(users.indexOf(existingUser.get()), user);
         }

@@ -13,6 +13,9 @@ public class DatabaseSeeder {
     private final AccountRepository accountRepository;
     private final BankRepository bankRepository;
 
+    private Bank bank1;
+    private Bank bank2;
+
     public DatabaseSeeder(AccountRepository accountRepository, BankRepository bankRepository) {
         this.accountRepository = accountRepository;
         this.bankRepository = bankRepository;
@@ -20,18 +23,22 @@ public class DatabaseSeeder {
 
     @PostConstruct
     public void init() {
-        if (accountRepository.count() == 0) { // Check if repository is empty
+        if (bankRepository.count() == 0) {
             try {
-                accountRepository.save(new Account(1, "Dren", 250));
-                accountRepository.save(new Account(2, "Art", 200));
+                bank1 = new Bank("Raiffeisen",1, 3);
+                bank2 = new Bank("Procredit",0, 5);
+                bankRepository.save(bank1);
+                bankRepository.save(bank2);
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
         }
-        if (bankRepository.count() == 0) { // Check if repository is empty
+        if (accountRepository.count() == 0) {
             try {
-                bankRepository.save(new Bank("Raiffeisen",1, 3));
-                bankRepository.save(new Bank("Prodcredit",0, 5));
+                Account dren = new Account(1, "Dren", 250, bank1);
+                Account art = new Account(2, "Art", 200, bank2);
+                accountRepository.save(dren);
+                accountRepository.save(art);
             } catch (IllegalArgumentException e) {
                 e.printStackTrace();
             }
